@@ -34,4 +34,16 @@ describe Oystercard do
 
   end
 
+  describe "#in_journey?" do
+    it "can touch in" do
+      card.touch_in
+      expect(card).to be_in_journey
+    end
+
+    it "can touch out" do
+      card.touch_out
+      expect(card).not_to be_in_journey
+    end
+  end
+
 end

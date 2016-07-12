@@ -25,4 +25,17 @@ describe 'user stories' do
   it 'allows fares to be deducted from card' do
     expect { card.deduct(10) }.not_to raise_error
   end
+
+  it 'allows customer to touch in' do
+    expect { card.touch_in }.not_to raise_error
+  end
+
+  it 'allows customer to touch out' do
+    expect { card.touch_out }.not_to raise_error
+  end
+
+  it 'can tell customer if in journey' do
+    expect { card.in_journey? }.not_to raise_error
+  end
+
 end
