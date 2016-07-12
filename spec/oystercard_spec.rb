@@ -12,8 +12,14 @@ describe Oystercard do
   describe "#top_up" do
     it 'can be topped up' do
       expect{ card.top_up(5) }.to change{ card.balance }.by 5
-      expect{ card.top_up(1) }.to eq(6)
+      expect(card.top_up(1)).to eq(6)
     end
+
+    it 'creates error when maximum balance exceeded' do
+      card.top_up(described_class::DEFAULT_MAXIMUM)
+      expect {card.top_up(1)}.to raise_error "maximum balance reached"
+    end
+
   end
 
 
