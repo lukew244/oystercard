@@ -68,12 +68,24 @@ describe Oystercard do
   end
 
   describe "#station" do
+    before do
+      card.top_up(1)
+    end
+
     it 'remembers entry station' do
-      card.top_up(5)
       card.touch_in(station)
       expect(card.entry_station).to eq station
     end
+
+    it 'has a history' do
+      card.touch_in(station)
+      card.touch_out
+      expect(card.history).to eq [station]
+
+    end
+
   end
+
 
 
 end

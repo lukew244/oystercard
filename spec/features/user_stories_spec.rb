@@ -3,7 +3,7 @@ require 'oystercard'
 describe 'user stories' do
   let(:card) {Oystercard.new}
   let(:station) {double :station}
-  
+
   # In order to use public transport
   # As a customer
   # I want money on my card
@@ -42,6 +42,8 @@ describe 'user stories' do
     expect { card.touch_in(station) }.to raise_error message
   end
 
-
+  it 'allows customer to see previous trips' do
+    expect { card.history }.not_to raise_error
+  end
 
 end
