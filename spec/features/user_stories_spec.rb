@@ -18,7 +18,11 @@ describe 'user stories' do
   end
 
   it 'throws an error when maximum balance exceeded' do
-    expect { card.top_up(91) }.to raise_error "maximum balance reached"
+    message = "You have reached your maximum allowance of 90"
+    expect { card.top_up(91) }.to raise_error message
   end
 
+  it 'allows fares to be deducted from card' do
+    expect { card.deduct(10) }.not_to raise_error
+  end
 end
