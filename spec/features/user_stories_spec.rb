@@ -22,9 +22,6 @@ describe 'user stories' do
     expect { card.top_up(91) }.to raise_error message
   end
 
-  it 'allows fares to be deducted from card' do
-    expect { card.deduct(10) }.not_to raise_error
-  end
 
   it 'allows customer to touch in' do
     card.top_up(5)
@@ -43,4 +40,6 @@ describe 'user stories' do
     message = "Not enough funds"
     expect { card.touch_in }.to raise_error message
   end
+
+
 end
