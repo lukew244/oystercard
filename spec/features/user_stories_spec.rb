@@ -27,6 +27,7 @@ describe 'user stories' do
   end
 
   it 'allows customer to touch in' do
+    card.top_up(5)
     expect { card.touch_in }.not_to raise_error
   end
 
@@ -38,4 +39,8 @@ describe 'user stories' do
     expect { card.in_journey? }.not_to raise_error
   end
 
+  it 'user must have minimum amount on card' do
+    message = "Not enough funds"
+    expect { card.touch_in }.to raise_error message
+  end
 end

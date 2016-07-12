@@ -35,14 +35,28 @@ describe Oystercard do
   end
 
   describe "#in_journey?" do
+    before do
+      card.top_up(5)
+    end
+
+    it "is initially not in journey" do
+      expect(card).not_to be_in_journey
+    end
+
     it "can touch in" do
       card.touch_in
       expect(card).to be_in_journey
     end
 
     it "can touch out" do
+      card.touch_in
       card.touch_out
       expect(card).not_to be_in_journey
+    end
+
+    it "raises error when not enough funds to touch in" do
+      card.deduct(5)
+      expect{card.touch_in}.to raise_error "Not enough funds"
     end
   end
 
