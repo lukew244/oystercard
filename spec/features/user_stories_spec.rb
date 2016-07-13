@@ -19,7 +19,7 @@ describe 'user stories' do
   end
 
   it 'throws an error when maximum balance exceeded' do
-    message = "You have reached your maximum allowance of 90"
+    message = "Cannot top-up: exceeds maximum balance of 90"
     expect { card.top_up(91) }.to raise_error message
   end
 
@@ -30,7 +30,7 @@ describe 'user stories' do
   end
 
   it 'allows customer to touch out' do
-    expect { card.touch_out }.not_to raise_error
+    expect { card.touch_out(station) }.not_to raise_error
   end
 
   it 'can tell customer if in journey' do
@@ -38,12 +38,15 @@ describe 'user stories' do
   end
 
   it 'user must have minimum amount on card' do
-    message = "Not enough funds"
+    message = "Cannot touch in: balance is too low"
     expect { card.touch_in(station) }.to raise_error message
   end
 
-  it 'allows customer to see previous trips' do
-    expect { card.history }.not_to raise_error
+  it 'allows customer to see history' do
+    card.top_up(1)
+    card.touch_in(station)
+    card.touch_out(station)
+    expect(card.history.length).to eq 1
   end
 
 end
