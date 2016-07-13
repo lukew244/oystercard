@@ -30,8 +30,9 @@ describe Oystercard do
 
     it "can deduct a fare" do
       card.top_up(50)
-      10.times {card.touch_out(station)}
-      expect(card.balance).to eq 40
+      card.touch_in(station)
+      card.touch_out(station)
+      expect(card.balance).to eq 49
     end
 
   end
@@ -42,7 +43,7 @@ describe Oystercard do
     end
 
     it "is initially not in journey" do
-      expect(card).not_to be_in_journey
+      expect(card.journey).to be_empty
     end
 
     it "can touch in" do
@@ -63,6 +64,7 @@ describe Oystercard do
 
   context 'when balance is too low' do
     it "touch in raises error" do
+      card.touch_in(station)
       card.touch_out(station)
       message = "Cannot touch in: balance is too low"
       expect{ card.touch_in(station) }.to raise_error message
@@ -80,26 +82,11 @@ describe Oystercard do
       card.top_up(1)
       card.touch_in(station1)
     end
-#this can be refactored once stations are in the array
-    it 'remembers entry station' do
-      expect(card.entry_station).to eq station1
-    end
 
-    it 'remembers exit station' do
-      card.touch_out(station)
-      expect(card.exit_station).to eq station
-    end
-
-    it 'remembers current journey' do
-
+    it 'can display journey' do
       card.touch_out(station2)
-      expect(card.journey[station1]).to eq station2
-    end
-
-    it 'can display history' do
-      card.touch_out(station2)
-      expect(card.history.length).to eq 1
-      #to include test?
+      expect(card.journey).to eq [{:entry_station => station1, :exit_station => station2}]
+      
     end
 
   end

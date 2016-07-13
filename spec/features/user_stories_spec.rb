@@ -30,11 +30,15 @@ describe 'user stories' do
   end
 
   it 'allows customer to touch out' do
+    card.top_up(1)
+    card.touch_in(station)
     expect { card.touch_out(station) }.not_to raise_error
   end
 
   it 'can tell customer if in journey' do
-    expect { card.in_journey? }.not_to raise_error
+    card.top_up(1)
+    card.touch_in(station)
+    expect(card).to be_in_journey
   end
 
   it 'user must have minimum amount on card' do
@@ -42,11 +46,6 @@ describe 'user stories' do
     expect { card.touch_in(station) }.to raise_error message
   end
 
-  it 'allows customer to see history' do
-    card.top_up(1)
-    card.touch_in(station)
-    card.touch_out(station)
-    expect(card.history.length).to eq 1
-  end
+
 
 end
