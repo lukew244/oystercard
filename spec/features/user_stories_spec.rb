@@ -2,7 +2,7 @@ require 'oystercard'
 
 describe 'user stories' do
   let(:card) {Oystercard.new}
-  let(:station) {double :station}
+  let(:station) {Station.new}
 
   # In order to use public transport
   # As a customer
@@ -44,6 +44,14 @@ describe 'user stories' do
   it 'user must have minimum amount on card' do
     message = "Cannot touch in: balance is too low"
     expect { card.touch_in(station) }.to raise_error message
+  end
+
+  # In order to know how far I have travelled
+  # As a customer
+  # I want to know what zone a station is in
+
+  it 'stations let customers know which zone they are in' do
+      expect{ station.zone }.not_to raise_error
   end
 
 

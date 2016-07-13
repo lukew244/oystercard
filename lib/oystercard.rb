@@ -4,7 +4,7 @@ class Oystercard
   MINIMUM_BALANCE = 1
   START_BALANCE = 0
   MINIMUM_FARE = 1
-  attr_reader :balance, :journey, :history
+  attr_reader :balance, :journey
 
 
   def initialize
@@ -30,10 +30,7 @@ class Oystercard
 
   def in_journey?
     !journey.last.include? :exit_station
-    #!!@entry_station
   end
-
-
 
 private
 
