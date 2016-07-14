@@ -12,6 +12,7 @@ describe Journey do
       journey.start(entry_station)
       expect(journey.journey).to eq({:entry_station => entry_station})
     end
+
   end
 
   describe 'finish' do
@@ -23,11 +24,27 @@ describe Journey do
   end
 
   describe '#fare' do
-    it 'calculates journey fare' do
-      journey.start(entry_station)
-      journey.finish(exit_station)
-      expect(journey.fare).to eq(1)
+    context 'when journey is complete' do
+      it 'returns minimum fare' do
+        journey.start(entry_station)
+        journey.finish(exit_station)
+        expect(journey.fare).to eq(1)
+      end
     end
+    context 'when journey is not complete' do
+      it 'returns penalty fare when exit without entry' do
+        journey.finish(exit_station)
+        expect(journey.fare).to eq(6)
+      end
+
+      it 'returns penaly fare when entry without exit' do
+        journey.start(entry_station)
+        journey.start(entry_station)
+        expect(journey.fare).to eq(6)
+      end
+    end
+
+
   end
 
   describe 'complete?' do
