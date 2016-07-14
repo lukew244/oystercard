@@ -2,7 +2,7 @@ require 'oystercard'
 
 describe 'user stories' do
   let(:card) {Oystercard.new}
-  let(:station) {Station.new}
+  let(:station) {Station.new("Aldgate")}
 
   # In order to use public transport
   # As a customer
@@ -53,6 +53,18 @@ describe 'user stories' do
   it 'stations let customers know which zone they are in' do
       expect{ station.zone }.not_to raise_error
   end
+
+#   In order to be charged correctly
+# As a customer
+# I need a penalty charge deducted if I fail to touch in or out
+
+  xit 'applies a penalty charge when customer fails to touch in or out' do
+    card.top_up(1)
+    card.touch_in(station)
+    card.touch_in(station)
+    expect(card.balance).to eq -5
+  end
+
 
 
 

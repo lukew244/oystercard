@@ -20,7 +20,7 @@ class Oystercard
 
   def touch_in(station)
     fail "Cannot touch in: balance is too low" if exceeds_min?
-    @journey << { :entry_station => station }
+    @journey << { entry_station: station }
   end
 
   def touch_out(station)
