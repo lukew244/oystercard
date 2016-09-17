@@ -1,4 +1,4 @@
-require_relative 'journey'
+require 'journey'
 
 class Oystercard
   MAX_BALANCE = 90
